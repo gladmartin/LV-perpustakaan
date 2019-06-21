@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Penerbit;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Buku;
 use DataTables;
 use App\Scope\LatestScope;

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pinjam;
 use DataTables;
 use App\Buku;
 use App\Anggota;
-use App\Http\Controllers\Controller;
 use App\DetailPinjam;
 use Carbon\Carbon;
 use App\Peraturan;

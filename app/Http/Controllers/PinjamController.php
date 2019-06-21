@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Pinjam;
 use App\Buku;
 use App\Peraturan;
 use DataTables;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Anggota;
 use Illuminate\Support\Facades\Auth;
 use App\DetailPinjam;

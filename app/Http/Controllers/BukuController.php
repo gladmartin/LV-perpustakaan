@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Buku;
 use App\Rak;
@@ -10,7 +10,6 @@ use App\Kategori;
 use DataTables;
 use File;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class BukuController extends Controller
 {
