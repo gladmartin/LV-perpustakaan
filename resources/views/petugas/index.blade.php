@@ -18,12 +18,13 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
                 <div class="row x_title">
-                    <div class="col-md-10 col-xs-8">
-                        <h2>Daftar data <small>petugas</small></h2>
+                    <div class="col-md-8 col-xs-5">
+                        <h2>Data petugas</h2>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="pull-right">
-                            <a href="{{ url('petugas/export-pdf') }}" class="btn btn-dark">Export PDF</a>
+                            <a href="{{ url('petugas/export-pdf') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
+                            <a href="{{ url('petugas/export-pdf') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
