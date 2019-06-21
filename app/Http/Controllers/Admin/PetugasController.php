@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use App\Exports\PetugasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PetugasController extends Controller
 {
@@ -151,12 +153,12 @@ class PetugasController extends Controller
     public function exportPdf()
     {
         $data['petugas'] = Petugas::with('user')->get();
-        // dd($data['petugas']);
-        // foreach ($data['petugas'] as $val) {
-        //     echo $val->user->email;
-        // }
-        // exit;
         $pdf = PDF::loadView('export.pdf.petugas', $data);
         return $pdf->download('daftar-data-petugas.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PetugasExport, 'daftar-data-petugas.xlsx');
     }
 }
