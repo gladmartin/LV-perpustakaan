@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('site.home');
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:petugas']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Admin'], function () {
     Route::get('/pengarang/json', 'PengarangController@json');
     Route::get('/penerbit/json', 'PenerbitController@json');
     Route::get('/kategori/json', 'KategoriController@json');
@@ -49,9 +49,9 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function (
     Route::resource('/pinjam', 'PinjamController')->only('show');
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:anggota']], function () {
-    Route::get('/list-peminjaman/json', 'PinjamController@jsonAnggota');
-    Route::get('/list-peminjaman', 'PinjamController@indexAnggota')->name('anggota.pinjam');
+Route::group(['middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Anggota'], function () {
+    Route::get('/list-peminjaman/json', 'PinjamController@json');
+    Route::get('/list-peminjaman', 'PinjamController@index')->name('anggota.pinjam');
 });
 
 Auth::routes();
