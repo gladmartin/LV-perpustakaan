@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="pull-right">
-                            <a href="{{ url('petugas/export-pdf') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
+                            <a href="{{ url('petugas/export-excel') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
                             <a href="{{ url('petugas/export-pdf') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
                         </div>
                     </div>
