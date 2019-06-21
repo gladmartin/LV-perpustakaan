@@ -52,7 +52,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/pinjam/json'),
+        ajax: siteUrl('pinjam/json'),
         columns: [
             { data: 'tgl_pinjam', name: 'tgl_pinjam' },
             { data: 'anggota', name: 'anggota' },
@@ -66,7 +66,7 @@
     elementTable.on('click', '.hapus-pinjam' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/pinjam/${id}`;
+        let url = `pinjam/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){

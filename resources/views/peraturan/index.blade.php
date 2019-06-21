@@ -110,7 +110,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/peraturan/json'),
+        ajax: siteUrl('peraturan/json'),
         columns: [{
                 data: 'id',
                 name: 'id',
@@ -153,7 +153,7 @@
     elementTable.on('click', '.hapus-peraturan', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/peraturan/${id}`;
+        let url = `peraturan/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi', "Yakin ingin menghapus data ini?",
             function () {
@@ -167,7 +167,7 @@
         $('#form-tambah button[type=submit]').addClass('disabled');
         $('#form-tambah button[type=submit]').html('Memproses...');
         let data = new FormData(this);
-        let url = siteUrl(`administrator/peraturan/`);
+        let url = siteUrl(`peraturan/`);
         // kirim
         let response = await sendAxios(data, url, 'POST');
         // selesai

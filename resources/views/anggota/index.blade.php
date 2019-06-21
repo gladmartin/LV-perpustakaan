@@ -74,7 +74,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/anggota/json'),
+        ajax: siteUrl('anggota/json'),
         columns: [
             { data: 'nama', name: 'nama' },
             { data: 'email', name: 'email' },
@@ -90,7 +90,7 @@
     elementTable.on('click', '.hapus-anggota' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/anggota/${id}`;
+        let url = `anggota/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){

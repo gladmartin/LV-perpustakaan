@@ -117,7 +117,7 @@
             let anggotaId = parseInt($('#anggota').val());
             if (!bukuId) return initNotify('Pilih buku yang ingin dipinjam');
             if (arrBuku.includes(bukuId)) return initNotify('Buku sudah di pilih');
-            let url = siteUrl(`administrator/pinjam/get-buku/${bukuId}/${anggotaId}`);
+            let url = siteUrl(`pinjam/get-buku/${bukuId}/${anggotaId}`);
             // $(this).addClass('disabled');
             // $(this).html('Memproses..');
             let response = await sendAxios([], url);
@@ -158,7 +158,7 @@
             btnSubmit.addClass('disabled');
             btnSubmit.html('Mohon tunggu....');
             let data = new FormData(this);
-            let url =  siteUrl('administrator/pinjam');
+            let url =  siteUrl('pinjam');
             let response = await sendAxios(data, url, 'POST');
             btnSubmit.removeClass('disabled');
             btnSubmit.html('Proses peminjaman');
@@ -201,7 +201,7 @@
                 );
             }
             if(!response.data.status) return initNotify(JSON.stringify(response.data.errors), 'error', 'red', 'Error');
-            document.location.href = siteUrl('administrator/pinjam');
+            document.location.href = siteUrl('pinjam');
         })
     </script>
 @endsection

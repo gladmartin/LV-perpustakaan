@@ -112,7 +112,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/penerbit/json'),
+        ajax: siteUrl('penerbit/json'),
         columns: [
             { data: 'id', name: 'id', searchable: false },
             { data: 'nama', name: 'nama' },
@@ -124,7 +124,7 @@
     
     async function getPenerbit(id){
         try {
-            const response = await axios.get(siteUrl(`administrator/penerbit/${id}`));
+            const response = await axios.get(siteUrl(`penerbit/${id}`));
             if (!response.data.status) return alert('Data tidak ditemukan');
             const {nama} = response.data.data;
             $('.modal #nama').val(nama);
@@ -137,7 +137,7 @@
     elementTable.on('click', '.hapus-penerbit' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/penerbit/${id}`;
+        let url = `penerbit/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){
@@ -149,7 +149,7 @@
     elementTable.on('click', '.ubah-penerbit', function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        $('.modal form').attr('action', siteUrl(`administrator/penerbit/${id}`));
+        $('.modal form').attr('action', siteUrl(`penerbit/${id}`));
         getPenerbit(id);
     })
 
@@ -165,7 +165,7 @@
         try {
             const response = await axios({
                 method: 'POST',
-                url: siteUrl('administrator/penerbit'),
+                url: siteUrl('penerbit'),
                 data
             })
             $('#form-tambah button').removeClass('disabled');
@@ -209,7 +209,7 @@
         try {
             const response = await axios({
                 method: 'POST',
-                url: siteUrl(`administrator/penerbit/${id}`),
+                url: siteUrl(`penerbit/${id}`),
                 data
             })
             $('#form-ubah button[type="submit"]').removeClass('disabled');

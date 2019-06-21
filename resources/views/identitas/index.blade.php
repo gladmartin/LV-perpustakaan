@@ -116,7 +116,7 @@
             $('#form-ubah button[type=submit]').addClass('disabled');
             $('#form-ubah button[type=submit]').html('Memproses...');
             let data = new FormData(this);
-            let url = siteUrl(`administrator/identitas-web/`);
+            let url = siteUrl(`identitas-web/`);
             // kirim
             let response = await sendAxios(data, url, 'POST');
             // selesai

@@ -94,7 +94,7 @@
             e.preventDefault();
             valBuku = [];
             let id = $(this).val();
-            let url = siteUrl(`administrator/pinjam/getbyanggotaid/${id}`);
+            let url = siteUrl(`pinjam/getbyanggotaid/${id}`);
             let response = await sendAxios([], url);
             if (!response.data.status) {
                 alertify.alert('Info',response.data.msg,
@@ -144,7 +144,7 @@
             btnSubmit.addClass('disabled');
             btnSubmit.html('Mohon tunggu....');
             let data = new FormData(this);
-            let url =  siteUrl('administrator/pengembalian');
+            let url =  siteUrl('pengembalian');
             let response = await sendAxios(data, url, 'POST');
             btnSubmit.removeClass('disabled');
             btnSubmit.html('Proses pengembalian');

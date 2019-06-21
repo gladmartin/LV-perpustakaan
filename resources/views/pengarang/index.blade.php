@@ -116,7 +116,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/pengarang/json'),
+        ajax: siteUrl('pengarang/json'),
         columns: [
             { data: 'id', name: 'id', searchable: false },
             { data: 'nama', name: 'nama' },
@@ -129,7 +129,7 @@
     elementTable.on('click', '.hapus-pengarang' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/pengarang/${id}`;
+        let url = `pengarang/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){
@@ -141,7 +141,7 @@
     elementTable.on('click', '.ubah-pengarang', function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        $('.modal form').attr('action', siteUrl(`administrator/pengarang/${id}`));
+        $('.modal form').attr('action', siteUrl(`pengarang/${id}`));
         getPengarang(id);
     })
 
@@ -157,7 +157,7 @@
         try {
             const response = await axios({
                 method: 'POST',
-                url: siteUrl('administrator/pengarang'),
+                url: siteUrl('pengarang'),
                 data
             })
             $('#form-tambah button').removeClass('disabled');
@@ -201,7 +201,7 @@
         try {
             const response = await axios({
                 method: 'POST',
-                url: siteUrl(`administrator/pengarang/${id}`),
+                url: siteUrl(`pengarang/${id}`),
                 data
             })
             $('#form-ubah button[type="submit"]').removeClass('disabled');
@@ -235,7 +235,7 @@
     
     async function getPengarang(id){
         try {
-            const response = await axios.get(siteUrl(`administrator/pengarang/${id}`));
+            const response = await axios.get(siteUrl(`pengarang/${id}`));
             if (!response.data.status) return alert('Data tidak ditemukan');
             const {nama} = response.data.data;
             $('.modal #nama').val(nama);

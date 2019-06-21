@@ -102,7 +102,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/kategori/json'),
+        ajax: siteUrl('kategori/json'),
         columns: [
             { data: 'id', name: 'id', searchable: false },
             { data: 'nama', name: 'nama' },
@@ -114,7 +114,7 @@
     elementTable.on('click', '.hapus-kategori' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/kategori/${id}`;
+        let url = `kategori/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){
@@ -126,7 +126,7 @@
     elementTable.on('click', '.ubah-kategori', async function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = siteUrl(`administrator/kategori/${id}`);
+        let url = siteUrl(`kategori/${id}`);
         let response = await sendAxios([], url);
         if (!response.data.status) return alert('Data tidak ditemukan');
         const {nama} = response.data.data;
@@ -139,7 +139,7 @@
         $('#form-tambah button').addClass('disabled');
         $('#form-tambah button').html('Memproses...');
         let data = new FormData(this);
-        let url = siteUrl(`administrator/kategori/`);
+        let url = siteUrl(`kategori/`);
         // kirim
         let response = await sendAxios(data, url, 'POST');
         // selesai
@@ -166,7 +166,7 @@
         $('#form-ubah button[type="submit"]').addClass('disabled');
         $('#form-ubah button[type="submit"]').html('Memproses...');        
         let id = $('#id').val();
-        let url = siteUrl(`administrator/kategori/${id}`);
+        let url = siteUrl(`kategori/${id}`);
         let data = new FormData(this);
         // kirim
         let response = await sendAxios(data, url, 'POST');

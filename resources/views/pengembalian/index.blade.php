@@ -51,7 +51,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/pengembalian/json'),
+        ajax: siteUrl('pengembalian/json'),
         columns: [
             { data: 'tgl_kembali', name: 'tgl_kembali' },
             { data: 'anggota', name: 'anggota' },
@@ -64,7 +64,7 @@
     elementTable.on('click', '.hapus-pengembalian' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/pengembalian/${id}`;
+        let url = `pengembalian/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){

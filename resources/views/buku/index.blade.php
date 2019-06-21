@@ -57,7 +57,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/buku/json'),
+        ajax: siteUrl('buku/json'),
         columns: [
             { data: 'isbn', name: 'isbn', orderable:false },
             { data: 'judul', name: 'judul' },
@@ -73,7 +73,7 @@
     elementTable.on('click', '.hapus-buku' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/buku/${id}`;
+        let url = `buku/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){

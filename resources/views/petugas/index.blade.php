@@ -70,7 +70,7 @@
     let table = elementTable.DataTable({
         processing: true,
         serverSide: true,
-        ajax: siteUrl('administrator/petugas/json'),
+        ajax: siteUrl('petugas/json'),
         columns: [
             { data: 'nama', name: 'nama' },
             { data: 'email', name: 'email' },
@@ -86,7 +86,7 @@
     elementTable.on('click', '.hapus-petugas' ,function(e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let url = `administrator/petugas/${id}`;
+        let url = `petugas/${id}`;
         let ini = $(this);
         alertify.confirm('Konfirmasi',"Yakin ingin menghapus data ini?",
         function(){
