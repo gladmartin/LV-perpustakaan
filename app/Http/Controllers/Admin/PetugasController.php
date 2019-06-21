@@ -9,6 +9,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class PetugasController extends Controller
 {
@@ -145,5 +146,17 @@ class PetugasController extends Controller
         $delete = $user->delete();
         $response = $delete ? ['status' => true, 'msg' => 'Data berhasil dihapus', 'data' => $user] : ['status' => false, 'msg' => 'Data gagal dihapus'];
         return response()->json($response);
+    }
+
+    public function exportPdf()
+    {
+        $data['petugas'] = Petugas::with('user')->get();
+        // dd($data['petugas']);
+        // foreach ($data['petugas'] as $val) {
+        //     echo $val->user->email;
+        // }
+        // exit;
+        $pdf = PDF::loadView('export.pdf.petugas', $data);
+        return $pdf->download('daftar-data-petugas.pdf');
     }
 }
