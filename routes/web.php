@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('site.home');
 });
 
-Route::group(['prefix' => 'administrator' ,'middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => ['auth', 'checkRole:petugas']], function () {
     Route::get('/pengarang/json', 'PengarangController@json');
     Route::get('/penerbit/json', 'PenerbitController@json');
     Route::get('/kategori/json', 'KategoriController@json');
