@@ -30,25 +30,28 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas']], function () {
     Route::get('/pengembalian/json', 'PengembalianController@json');
     Route::get('identitas-web', 'IdentitasController@index')->name('identitas');
     Route::post('identitas-web', 'IdentitasController@update')->name('identitas.update');
-    Route::resource('/petugas', 'PetugasController');
-    Route::resource('/buku', 'BukuController');
+    Route::resource('/petugas', 'PetugasController')->except('show');
+    Route::resource('/buku', 'BukuController')->except('show');
     Route::resource('/anggota', 'AnggotaController');
     Route::resource('/rak', 'RakController');
     Route::resource('/pengarang', 'PengarangController');
     Route::resource('/kategori', 'KategoriController');
     Route::resource('/penerbit', 'PenerbitController');
     Route::resource('/peraturan', 'PeraturanController');
-    Route::resource('/pinjam', 'PinjamController');
+    Route::resource('/pinjam', 'PinjamController')->except('show');
     Route::resource('/pengembalian', 'PengembalianController');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::resource('/buku', 'BukuController')->only('show');
+    Route::resource('/petugas', 'PetugasController')->only('show');
+    Route::resource('/pinjam', 'PinjamController')->only('show');
 });
 
-Route::group(['prefix' => 'anggota', 'middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Anggota'], function () {
-    Route::get('/list-peminjaman/json', 'PinjamController@json');
-    Route::get('/list-peminjaman', 'PinjamController@index')->name('anggota.pinjam');
+Route::group(['middleware' => ['auth', 'checkRole:anggota']], function () {
+    Route::get('/list-peminjaman/json', 'PinjamController@jsonAnggota');
+    Route::get('/list-peminjaman', 'PinjamController@indexAnggota')->name('anggota.pinjam');
 });
 
 Auth::routes();

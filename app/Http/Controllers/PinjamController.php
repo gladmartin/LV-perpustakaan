@@ -44,6 +44,28 @@ class PinjamController extends Controller
         ->make(true);
     }
 
+    public function jsonAnggota()
+    {
+        return DataTables::of(Pinjam::PinjamanSaya()->latest('tgl_pinjam')->get())
+        ->addColumn('buku', function(Pinjam $pinjam) {
+            $return = '';
+            foreach ($pinjam->detailPinjam as $value) {
+                $buku = Buku::find($value->buku_id);
+                $return .= "<p><a class='badge' href='" .route('buku.show',$buku->id). "'>{$buku->judul}</a></p> "; 
+            }
+            return $return;
+        })
+        ->addColumn('petugas', function(Pinjam $pinjam) {
+            return "<a class='text-green' href='". route('petugas.show', $pinjam->petugas->id) ."'>{$pinjam->petugas->nama}</a>";
+        })
+        ->addColumn('opsi', function(Pinjam $pinjam) {
+            return "
+            <a title='detail' href='". route('pinjam.show', $pinjam->id) ."' class='btn btn-dark' data-id='$pinjam->id'><i class='fa fa-eye'></i> </a>";
+        })
+        ->rawColumns(['opsi', 'petugas', 'buku'])
+        ->make(true);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +76,10 @@ class PinjamController extends Controller
         return view('pinjam.index');
     }
 
+    public function indexAnggota()
+    {
+        return view('pinjam.list-pinjam-anggota');
+    }
     /**
      * Show the form for creating a new resource.
      *
