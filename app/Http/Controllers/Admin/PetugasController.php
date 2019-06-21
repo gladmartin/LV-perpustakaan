@@ -10,8 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use PDF;
-use App\Exports\PetugasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PetugasExport;
+use App\Imports\PetugasImport;
 
 class PetugasController extends Controller
 {
@@ -147,6 +148,7 @@ class PetugasController extends Controller
         File::delete("img/avatar/{$user->avatar}");
         $delete = $user->delete();
         $response = $delete ? ['status' => true, 'msg' => 'Data berhasil dihapus', 'data' => $user] : ['status' => false, 'msg' => 'Data gagal dihapus'];
+
         return response()->json($response);
     }
 
@@ -154,11 +156,19 @@ class PetugasController extends Controller
     {
         $data['petugas'] = Petugas::with('user')->get();
         $pdf = PDF::loadView('export.pdf.petugas', $data);
+
         return $pdf->download('daftar-data-petugas.pdf');
     }
 
     public function exportExcel()
     {
         return Excel::download(new PetugasExport, 'daftar-data-petugas.xlsx');
+    }
+
+    public function import() 
+    {
+        Excel::import(new PetugasImport, public_path('daftar-data-petugas.xlsx'));
+        
+        return redirect('/')->with('success', 'All good!');
     }
 }
