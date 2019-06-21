@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
     Route::resource('/petugas', 'PetugasController')->except('show');
     Route::get('/petugas/export-pdf', 'PetugasController@exportPdf');
     Route::get('/petugas/export-excel', 'PetugasController@exportExcel');
-    Route::get('/petugas/import-excel', 'PetugasController@import');
+    Route::post('/petugas/import-excel', 'PetugasController@import');
     Route::resource('/buku', 'BukuController')->except('show');
     Route::resource('/anggota', 'AnggotaController');
     Route::resource('/rak', 'RakController');

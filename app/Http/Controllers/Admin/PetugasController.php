@@ -165,10 +165,48 @@ class PetugasController extends Controller
         return Excel::download(new PetugasExport, 'daftar-data-petugas.xlsx');
     }
 
-    public function import() 
+    public function import(Request $request) 
     {
-        Excel::import(new PetugasImport, public_path('daftar-data-petugas.xlsx'));
-        
-        return redirect('/')->with('success', 'All good!');
+        $validator = \Validator::make($request->all(), [
+            'petugas_excel' => 'required|mimes:xlsx,xls',
+        ]);
+
+        if ($validator->fails())
+        {
+            $response = [
+                'status' => false,
+                'errors' => $validator->errors()->first('nama')
+            ];
+
+            return response()->json($response);
+        }
+
+        $petugasExcel = $request->file('petugas_excel');
+        try {
+            Excel::import(new PetugasImport, $petugasExcel);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             $errors = [];
+             foreach ($failures as $failure) {
+                $errors['row'] = $failure->row(); 
+                $errors['attribute'] = $failure->attribute(); 
+                $errors['errors'] = $failure->errors(); 
+                $errors['values'] = $failure->values();
+            }
+             $response = [
+                'status' => false,
+                'msg' => 'format error',
+                'errors' => $errors,
+            ];
+
+            return response()->json($response);
+        }
+
+        $response = [
+            'status' => true,
+            'data' => '',
+        ];
+
+        return response()->json($response);
     }
 }
