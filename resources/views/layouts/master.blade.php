@@ -72,33 +72,18 @@
                                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard </a>
                                 </li>
                                 @if (auth()->user()->role == 'petugas')
-                                <li><a><i class="fa fa-sitemap"></i> Master Data <span
-                                            class="fa fa-chevron-down"></span></a>
+                                <li>
+                                    <a>
+                                        <i class="fa fa-sitemap"></i> Master Data <span
+                                            class="fa fa-chevron-down"></span>
+                                    </a>
                                     <ul class="nav child_menu">
-                                        <li><a><i class="fa fa-user-secret"></i>Petugas <span
-                                                    class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu"><a href="{{ route('petugas.index') }}">Daftar
-                                                        petugas</a></li>
-                                                <li><a href="{{ route('petugas.create') }}">Tambah petugas</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a><i class="fa fa-users"></i> Anggota <span
-                                                    class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="{{ route('anggota.index') }}">Daftar anggota</a></li>
-                                                <li><a href="{{ route('anggota.create') }}">Tambah anggota</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a><i class="fa fa-book"></i> Buku <span
-                                                    class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="{{ route('buku.index') }}">Daftar buku</a></li>
-                                                <li><a href="{{ route('buku.create') }}">Tambah buku</a></li>
-                                                <li><a href="{{ route('rak.index') }}">Rak buku</a></li>
-                                                <li><a href="{{ route('kategori.index') }}">Kategori buku</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="{{ route('petugas.index') }}"><i class="fa fa-user-secret"></i>Data Petugas
+                                        <li><a href="{{ route('anggota.index') }}"><i class="fa fa-users"></i>Data Anggota
+                                        <li><a href="{{ route('buku.index') }}"><i class="fa fa-book"></i>Data
+                                                Buku</a></li>
+                                        <li><a href="{{ route('rak.index') }}"><i class="fa fa-table"></i>Rak Buku</a></li>
+                                        <li><a href="{{ route('kategori.index') }}"><i class="fa fa-tag"></i>Kategori Buku</a></li>
                                         <li><a href="{{ route('pengarang.index') }}"><i class="fa fa-user-md"></i>Data
                                                 pengarang</a></li>
                                         <li><a href="{{ route('penerbit.index') }}"><i class="fa fa-file-text"></i>Data

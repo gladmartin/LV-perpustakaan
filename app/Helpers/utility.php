@@ -2,7 +2,7 @@
 
 if (!function_exists('setActiveMenu'))
 {
-    function setActiveMenu( $uri, $output = "active" )
+    function setActiveMenu( $uri, $output = "current-page" )
     {
         if ( is_array( $uri ) )
         {
@@ -11,7 +11,7 @@ if (!function_exists('setActiveMenu'))
                 if ( Route::is( $u ) ) return $output;
             }		
         }
-        if ( Route::is( $uri ) ) return $output;
+        return Request::is( $uri ) ? $output : 'false';
     }
 }
 
