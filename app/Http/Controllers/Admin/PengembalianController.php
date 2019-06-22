@@ -103,14 +103,14 @@ class PengembalianController extends Controller
         $peraturan = Peraturan::find($pinjam->peraturan_id);
         $maksPengemblian = $peraturan->lama_pengembalian;
         $biayaDenda = $peraturan->biaya_denda;
-        $tglPeminjaman = Carbon::parse($pinjam->tgl_pinjam);
+        $tglPeminjaman = $pinjam->tgl_pinjam;
         $tglPengembalian = Carbon::now();
         $selisihTgl = $tglPeminjaman->diffInDays($tglPengembalian);
         
         $pinjam->status = 'dikembalikan';
-        $pinjam->tgl_kembali = Carbon::now();
+        $pinjam->tgl_kembali = $tglPengembalian;
         $pinjam->petugas_id = 1;
-        // $pinjam->save();
+        $pinjam->save();
         // detail pengembalian buku
         $newArrBuku = [];
         foreach ($arrBuku as $key => $buku) {
@@ -118,7 +118,7 @@ class PengembalianController extends Controller
             $update = ['keterangan' => $buku->keterangan];
             $newArrBuku[$key]['judul'] = Buku::find($buku->id)->judul; 
             $newArrBuku[$key]['ket'] = $buku->keterangan;
-            // DetailPinjam::where($kondisi)->update($update);
+            DetailPinjam::where($kondisi)->update($update);
         }
         $anggota = Anggota::find($request->anggota_id);
         $response = [

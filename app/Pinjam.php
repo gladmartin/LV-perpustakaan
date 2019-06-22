@@ -8,6 +8,8 @@ class Pinjam extends Model
 {
     protected $table = 'pinjam';
 
+    public $dates = ['tgl_pinjam'];
+
     public $timestamps = false;
 
     public function scopeStatus($query, $status)

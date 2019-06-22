@@ -97,6 +97,8 @@
             let url = siteUrl(`pinjam/getbyanggotaid/${id}`);
             let response = await sendAxios([], url);
             if (!response.data.status) {
+                valBuku = [];
+                $('.tbody').html('');
                 alertify.alert('Info',response.data.msg,
                     function(){}
                 );

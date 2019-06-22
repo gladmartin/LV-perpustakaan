@@ -33,7 +33,8 @@ Detail peminjaman buku - {{ $pinjam->anggota->nama }}
                 <div class="text-center">
                     <img width="150px" src="{{ asset('img/avatar') .'/'. getPicture($pinjam->anggota->user->avatar) }}">
                 </div>
-                <table class="table">
+                <br>
+                <table class="table table-bordered">
                     <tr>
                         <th>Nama</th>
                         <td>{{ $pinjam->anggota->nama }}</td>

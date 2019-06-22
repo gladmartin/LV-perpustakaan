@@ -273,7 +273,7 @@ class PinjamController extends Controller
                 'buku' => $bukuPinjaman,
                 'pinjam' => [
                     'id' => $peminjaman->id,
-                    'tgl_pinjam' => $peminjaman->tgl_pinjam,
+                    'tgl_pinjam' => $peminjaman->tgl_pinjam->format('Y-m-d h:i:s'),
                 ],
                 'petugas' => [
                     'id' =>  $peminjaman->petugas->id,
