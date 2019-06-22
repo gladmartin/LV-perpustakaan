@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Imports\PetugasImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AnggotaImport;
 
 class ImportController extends Controller
 {
@@ -13,11 +14,11 @@ class ImportController extends Controller
     {
         switch ($table) {
             case 'anggota':
-                $this->importAnggota();
+                return $this->importAnggota();
             break;
             
             case 'petugas':
-                $this->importPetugas();
+                return $this->importPetugas();
             break;
             
             default:
@@ -67,9 +68,9 @@ class ImportController extends Controller
 
         $response = [
             'status' => true,
+            'msg' => 'Data berhasil dimport',
             'data' => '',
         ];
-
         return response()->json($response);
     }
 

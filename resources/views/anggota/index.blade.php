@@ -65,8 +65,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="petugas_excel">File Excel <span class="text-danger">*</span> </label>
-                        <input id="petugas_excel" type="file" name="petugas_excel"  class="form-control">
+                        <label for="anggota_excel">File Excel <span class="text-danger">*</span> </label>
+                        <input id="anggota_excel" type="file" name="anggota_excel"  class="form-control">
                     </div>
                     <div class="errors"></div>
                 </div>
@@ -126,17 +126,17 @@
         $('#form-tambah button[type=submit]').addClass('disabled');
         $('#form-tambah button[type=submit]').html('Memproses...');
         let data = new FormData(this);
-        let url = siteUrl('petugas/import-excel');
+        let url = siteUrl('import-excel/anggota');
         // kirim
         let response = await sendAxios(data, url, 'POST');
         // selesai
         $('#form-tambah button[type=submit]').removeClass('disabled');
         $('#form-tambah button[type=submit]').html('Import');
-        let petugasExcel = $('#form-tambah #petugas_excel');
+        let petugasExcel = $('#form-tambah #anggota_excel');
         clearErrorInput(petugasExcel);
         if (!response.data.status) {
             if (response.data.msg == 'form error') {
-                let input = $('#form-tambah #petugas_excel');
+                let input = $('#form-tambah #anggota_excel');
                 input.addClass('parsley-error');
                 input.after(`<b class="text-danger errorInput">${response.data.errors}</b>`);
                 return;
@@ -158,8 +158,8 @@
             }
         }
         $('.modal').modal('hide');
-        initNotify('Data berhasil dimport');
         table.ajax.reload();
+        initNotify(response.data.msg);
     })
 </script>
 @endsection

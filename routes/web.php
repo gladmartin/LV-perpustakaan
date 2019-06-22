@@ -23,17 +23,20 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
     Route::get('/petugas/json', 'PetugasController@json');
     Route::get('/rak/json', 'RakController@json');
     Route::get('/buku/json', 'BukuController@json');
-    Route::get('/pinjam/get-buku/{bukuIid}/{anggotaId}', 'PinjamController@getListBook');
     Route::get('/peraturan/json', 'PeraturanController@json');
     Route::get('/pinjam/json', 'PinjamController@json');
-    Route::get('/pinjam/getbyanggotaid/{id}', 'PinjamController@getbyanggotaid');
     Route::get('/pengembalian/json', 'PengembalianController@json');
+
+    Route::get('/pinjam/get-buku/{bukuIid}/{anggotaId}', 'PinjamController@getListBook');
+    Route::get('/pinjam/getbyanggotaid/{id}', 'PinjamController@getbyanggotaid');
     Route::get('identitas-web', 'IdentitasController@index')->name('identitas');
     Route::post('identitas-web', 'IdentitasController@update')->name('identitas.update');
-    Route::resource('/petugas', 'PetugasController')->except('show');
+
     Route::get('export-excel/{table}', 'ExportController@excel')->name('export-excel');
     Route::get('export-pdf/{table}', 'ExportController@pdf')->name('export-pdf');
-    Route::post('/petugas/import-excel', 'PetugasController@import');
+    Route::post('import-excel/{table}', 'ImportController@index')->name('import-excel');
+
+    Route::resource('/petugas', 'PetugasController')->except('show');
     Route::resource('/buku', 'BukuController')->except('show');
     Route::resource('/anggota', 'AnggotaController');
     Route::resource('/rak', 'RakController');
@@ -47,9 +50,9 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
 
 Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-    Route::resource('/buku', 'BukuController')->only('show');
-    Route::resource('/petugas', 'PetugasController')->only('show');
-    Route::resource('/pinjam', 'PinjamController')->only('show');
+    Route::resource('/buku', 'Admin\BukuController')->only('show');
+    Route::resource('/petugas', 'Admin\PetugasController')->only('show');
+    Route::resource('/pinjam', 'Admin\PinjamController')->only('show');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Anggota'], function () {
