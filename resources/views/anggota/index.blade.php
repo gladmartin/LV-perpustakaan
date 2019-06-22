@@ -18,13 +18,14 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="row x_title">
-                <div class="col-md-8 col-xs-5">
-                    <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-success btn-sm">Import file Excel</a> 
+                <div class="col-md-6 col-xs-6">
+                    <a href="{{ route('anggota.create') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus-square-o"></i> Tambah data</a> 
+                    <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-success btn-sm"><i class="glyphicon glyphicon-import"></i> Import file Excel</a> 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-xs-6 text-right">
                     <div class="pull-right">
-                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
-                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
+                        <a href="{{ route('export-pdf', 'anggota') }}" class="btn btn-dark btn-sm"><i class="fa fa-file-pdf-o"></i> Export ke PDF</a>
+                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> Export ke Excel</a> 
                     </div>
                 </div>
                 <div class="clearfix"></div>
