@@ -14,18 +14,4 @@ class AnggotaExport implements FromView
             'anggota' => Anggota::all()
         ]);
     }
-
-    /**
-    * @var Anggota $anggota
-    */
-    public function map($anggota): array
-    {
-        return [
-            $anggota->nama,
-            $anggota->jk,
-            $anggota->agama,
-            $anggota->user->email,
-            $anggota->alamat,
-        ];
-    }
 }

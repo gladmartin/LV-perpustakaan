@@ -14,7 +14,7 @@
             @php
                 $no = 1;
             @endphp
-            @foreach ($petugas as $item)
+            @foreach ($anggota as $item)
                 <tr>
                     <td>{{ $no++ }}</td>
                     <td>{{ $item->nama }}</td>
