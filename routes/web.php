@@ -10,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('site.home');
+Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function () {
+    Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::resource('/buku', 'Admin\BukuController')->only('show');
+    Route::resource('/petugas', 'Admin\PetugasController')->only('show');
+    Route::resource('/pinjam', 'Admin\PinjamController')->only('show');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Admin'], function () {
@@ -48,13 +50,6 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
     Route::resource('/pengembalian', 'PengembalianController');
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-    Route::resource('/buku', 'Admin\BukuController')->only('show');
-    Route::resource('/petugas', 'Admin\PetugasController')->only('show');
-    Route::resource('/pinjam', 'Admin\PinjamController')->only('show');
-});
-
 Route::group(['middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Anggota'], function () {
     Route::get('/list-peminjaman/json', 'PinjamController@json');
     Route::get('/list-peminjaman', 'PinjamController@index')->name('anggota.pinjam');
@@ -62,4 +57,3 @@ Route::group(['middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Ang
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
