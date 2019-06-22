@@ -9,7 +9,7 @@
 @endsection
 
 @section('title.left')
-<h3>Data anggota</h3>
+<h3>Data Anggota</h3>
 @stop
 
 @section('content')
@@ -23,8 +23,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="pull-right">
-                        <a href="{{ url('anggota/export-excel') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
-                        <a href="{{ url('anggota/export-pdf') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
+                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
+                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

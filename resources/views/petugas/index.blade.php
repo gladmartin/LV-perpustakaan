@@ -9,7 +9,7 @@
 @endsection
 
 @section('title.left')
-<h3>Petugas</h3>
+<h3>Data Petugas</h3>
 @stop
 
 @section('content')
@@ -17,18 +17,18 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-                <div class="row x_title">
-                    <div class="col-md-8 col-xs-5">
-                        <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-success btn-sm">Import file Excel</a> 
-                    </div>
-                    <div class="col-md-4">
-                        <div class="pull-right">
-                            <a href="{{ url('petugas/export-excel') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
-                            <a href="{{ url('petugas/export-pdf') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
+            <div class="row x_title">
+                <div class="col-md-8 col-xs-5">
+                    <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-success btn-sm">Import file Excel</a> 
                 </div>
+                <div class="col-md-4">
+                    <div class="pull-right">
+                        <a href="{{ route('export-excel', 'petugas') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
+                        <a href="{{ route('export-pdf', 'petugas') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <div class="x_content">
                 <table id="datatable-server-side" class="table table-striped table-bordered dt-responsive nowrap">
                     <thead>
