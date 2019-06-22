@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
     Route::get('identitas-web', 'IdentitasController@index')->name('identitas');
     Route::post('identitas-web', 'IdentitasController@update')->name('identitas.update');
     Route::resource('/petugas', 'PetugasController')->except('show');
-    Route::get('/petugas/export-pdf', 'PetugasController@exportPdf');
-    Route::get('/petugas/export-excel', 'PetugasController@exportExcel');
+    Route::get('export-excel/{table}', 'ExportController@excel')->name('export-excel');
+    Route::get('export-pdf/{table}', 'ExportController@pdf')->name('export-pdf');
     Route::post('/petugas/import-excel', 'PetugasController@import');
     Route::resource('/buku', 'BukuController')->except('show');
     Route::resource('/anggota', 'AnggotaController');
