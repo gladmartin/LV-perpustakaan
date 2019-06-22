@@ -153,7 +153,7 @@
             }
         }
         $('.modal').modal('hide');
-        initNotify('Data berhasil ditambah');
+        initNotify('Data berhasil dimport');
         table.ajax.reload();
     })
 
