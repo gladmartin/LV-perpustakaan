@@ -3,9 +3,6 @@
 namespace App\Exports;
 
 use App\Petugas;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 
@@ -37,17 +34,6 @@ class PetugasExport implements FromView
             $petugas->agama,
             $petugas->user->email,
             $petugas->alamat,
-        ];
-    }
-
-    public function headings(): array
-    {
-        return [
-            'Nama',
-            'Jenis Kelamain',
-            'Agama',
-            'Email',
-            'Alamat',
         ];
     }
 }
