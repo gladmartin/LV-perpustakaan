@@ -9,7 +9,7 @@
 @endsection
 
 @section('title.left')
-<h3>Buku</h3>
+<h3>Data Buku</h3>
 @stop
 
 @section('content')
@@ -17,8 +17,16 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Daftar data<small>buku</small></h2>
+            <div class="row x_title">
+                <div class="col-md-6 col-xs-6">
+                    <a href="{{ route('buku.create') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus-square-o"></i> Tambah data</a> 
+                </div>
+               {{--  <div class="col-md-6 col-xs-6 text-right">
+                    <div class="pull-right">
+                        <a href="{{ route('export-pdf', 'anggota') }}" class="btn btn-dark btn-sm"><i class="fa fa-file-pdf-o"></i> Export ke PDF</a>
+                        <a href="{{ route('export-excel', 'anggota') }}" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o"></i> Export ke Excel</a> 
+                    </div>
+                </div> --}}
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
