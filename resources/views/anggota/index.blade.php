@@ -9,7 +9,7 @@
 @endsection
 
 @section('title.left')
-<h3>anggota</h3>
+<h3>Data anggota</h3>
 @stop
 
 @section('content')
@@ -17,24 +17,16 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Daftar data<small>anggota</small></h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
-                            </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
+            <div class="row x_title">
+                <div class="col-md-8 col-xs-5">
+                    <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-success btn-sm">Import file Excel</a> 
+                </div>
+                <div class="col-md-4">
+                    <div class="pull-right">
+                        <a href="{{ url('anggota/export-excel') }}" class="btn btn-success btn-sm">Export ke Excel</a> 
+                        <a href="{{ url('anggota/export-pdf') }}" class="btn btn-dark btn-sm">Export ke PDF</a>
+                    </div>
+                </div>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -57,6 +49,36 @@
         </div>
     </div>
 </div>
+
+<!-- modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" id="form-tambah" action="{{ url('petugas/import-excel') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" id="id">
+                <div class="modal-header bg-green">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">Import data petugas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="petugas_excel">File Excel <span class="text-danger">*</span> </label>
+                        <input id="petugas_excel" type="file" name="petugas_excel"  class="form-control">
+                    </div>
+                    <div class="errors"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-dark">Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /modals -->
 
 
 @endsection
@@ -99,6 +121,45 @@
         });
     })
 
-
+    $('.modal #form-tambah').on('submit', async function(e) {
+        e.preventDefault();
+        $('#form-tambah button[type=submit]').addClass('disabled');
+        $('#form-tambah button[type=submit]').html('Memproses...');
+        let data = new FormData(this);
+        let url = siteUrl('petugas/import-excel');
+        // kirim
+        let response = await sendAxios(data, url, 'POST');
+        // selesai
+        $('#form-tambah button[type=submit]').removeClass('disabled');
+        $('#form-tambah button[type=submit]').html('Import');
+        let petugasExcel = $('#form-tambah #petugas_excel');
+        clearErrorInput(petugasExcel);
+        if (!response.data.status) {
+            if (response.data.msg == 'form error') {
+                let input = $('#form-tambah #petugas_excel');
+                input.addClass('parsley-error');
+                input.after(`<b class="text-danger errorInput">${response.data.errors}</b>`);
+                return;
+            }
+            if (response.data.msg == 'format error') {
+                const {errors} = response.data;
+                let modalBody = $('.modal .modal-body .errors');
+                let txt = `
+                    <b class="text-danger">Opps.. Terjadi kesalahan</b>
+                `;
+                $.each(errors, function(i, e) {
+                    txt += `<div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        </button>Error pada kolom ${e.attribute}, baris ke-${e.row} => ${e.errors[0]}
+                    </div>`
+                });
+                modalBody.html(txt);
+                return;
+            }
+        }
+        $('.modal').modal('hide');
+        initNotify('Data berhasil dimport');
+        table.ajax.reload();
+    })
 </script>
 @endsection
