@@ -56,7 +56,9 @@ async function sendAxios(data, url, method = 'GET') {
         return response;
     } catch (error) {
         loadingOff();
-        alert(error);
+        alertify.alert('Error',error,
+            function(){}
+        );
     }
 }
 $('select').select2({

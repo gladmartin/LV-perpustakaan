@@ -175,23 +175,24 @@ class PetugasController extends Controller
         {
             $response = [
                 'status' => false,
-                'errors' => $validator->errors()->first('nama')
+                'msg' => 'form error',
+                'errors' => $validator->errors()->first('petugas_excel')
             ];
 
             return response()->json($response);
         }
-
+        
         $petugasExcel = $request->file('petugas_excel');
         try {
             Excel::import(new PetugasImport, $petugasExcel);
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
              $failures = $e->failures();
              $errors = [];
-             foreach ($failures as $failure) {
-                $errors['row'] = $failure->row(); 
-                $errors['attribute'] = $failure->attribute(); 
-                $errors['errors'] = $failure->errors(); 
-                $errors['values'] = $failure->values();
+             foreach ($failures as $key => $failure) {
+                $errors[$key]['row'] = $failure->row(); 
+                $errors[$key]['attribute'] = $failure->attribute(); 
+                $errors[$key]['errors'] = $failure->errors(); 
+                $errors[$key]['values'] = $failure->values();
             }
              $response = [
                 'status' => false,

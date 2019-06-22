@@ -16,7 +16,6 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-            {{ $errors }}
         <div class="x_panel">
                 <div class="row x_title">
                     <div class="col-md-8 col-xs-5">
@@ -49,10 +48,9 @@
         </div>
     </div>
 </div>
-</div>
 <!-- modal -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="post" id="form-tambah" action="{{ url('petugas/import-excel') }}" enctype="multipart/form-data">
                 @csrf
@@ -64,11 +62,11 @@
                     <h4 class="modal-title" id="myModalLabel2">Import data petugas</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label for="petugas_excel">File Excel <span class="text-danger">*</span> </label>
-                            <input id="petugas_excel" type="file" name="petugas_excel"  class="form-control">
+                    <div class="form-group">
+                        <label for="petugas_excel">File Excel <span class="text-danger">*</span> </label>
+                        <input id="petugas_excel" type="file" name="petugas_excel"  class="form-control">
                     </div>
+                    <div class="errors"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
@@ -118,6 +116,46 @@
         });
     })
 
+    $('.modal #form-tambah').on('submit', async function(e) {
+        e.preventDefault();
+        $('#form-tambah button[type=submit]').addClass('disabled');
+        $('#form-tambah button[type=submit]').html('Memproses...');
+        let data = new FormData(this);
+        let url = siteUrl('petugas/import-excel');
+        // kirim
+        let response = await sendAxios(data, url, 'POST');
+        // selesai
+        $('#form-tambah button[type=submit]').removeClass('disabled');
+        $('#form-tambah button[type=submit]').html('Import');
+        let petugasExcel = $('#form-tambah #petugas_excel');
+        clearErrorInput(petugasExcel);
+        if (!response.data.status) {
+            if (response.data.msg == 'form error') {
+                let input = $('#form-tambah #petugas_excel');
+                input.addClass('parsley-error');
+                input.after(`<b class="text-danger errorInput">${response.data.errors}</b>`);
+                return;
+            }
+            if (response.data.msg == 'format error') {
+                const {errors} = response.data;
+                let modalBody = $('.modal .modal-body .errors');
+                let txt = `
+                    <b class="text-danger">Opps.. Terjadi kesalahan</b>
+                `;
+                $.each(errors, function(i, e) {
+                    txt += `<div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        </button>Error pada kolom ${e.attribute}, baris ke-${e.row} => ${e.errors[0]}
+                    </div>`
+                });
+                modalBody.html(txt);
+                return;
+            }
+        }
+        $('.modal').modal('hide');
+        initNotify('Data berhasil ditambah');
+        table.ajax.reload();
+    })
 
 </script>
 @endsection

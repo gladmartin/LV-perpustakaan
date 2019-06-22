@@ -4,8 +4,6 @@ namespace App\Imports;
 
 use App\User;
 use App\Petugas;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -14,6 +12,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 class PetugasImport implements ToModel, WithHeadingRow, WithValidation
 {
     use Importable;
+
     /* public function collection(Collection $rows)
     {
         Validator::make($rows->toArray(), [
@@ -61,7 +60,11 @@ class PetugasImport implements ToModel, WithHeadingRow, WithValidation
     {
         return [
             'nama' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
+            'kontak' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
         ];
     }
 
