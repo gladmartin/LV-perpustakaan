@@ -9,9 +9,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use PDF;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PetugasExport;
 use App\Imports\PetugasImport;
 
 class PetugasController extends Controller
@@ -38,34 +36,18 @@ class PetugasController extends Controller
         ->make(true);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data['petugas'] = Petugas::all();
         return view('petugas.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $data['agama'] = ['Islam', 'Kristen', 'Budha', 'Kongochu'];
         return view('petugas.create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -96,12 +78,6 @@ class PetugasController extends Controller
         return redirect(route('petugas.index'))->with('success', 'Data berhasil ditambah');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\petugas  $petugas
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $petugas = Petugas::findorFail($id);
@@ -109,12 +85,6 @@ class PetugasController extends Controller
         return view('petugas.detail', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\petugas  $petugas
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $petugas = Petugas::findorFail($id);
@@ -123,24 +93,11 @@ class PetugasController extends Controller
         return view('petugas.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\petugas  $petugas
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, petugas $petugas)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\petugas  $petugas
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $petugas = Petugas::find($id);
@@ -150,19 +107,6 @@ class PetugasController extends Controller
         $response = $delete ? ['status' => true, 'msg' => 'Data berhasil dihapus', 'data' => $user] : ['status' => false, 'msg' => 'Data gagal dihapus'];
 
         return response()->json($response);
-    }
-
-    public function exportPdf()
-    {
-        $data['petugas'] = Petugas::with('user')->get();
-        $pdf = PDF::loadView('export.pdf.petugas', $data);
-
-        return $pdf->download('daftar-data-petugas.pdf');
-    }
-
-    public function exportExcel()
-    {
-        return Excel::download(new PetugasExport, 'daftar-data-petugas.xlsx');
     }
 
     public function import(Request $request) 
