@@ -72,53 +72,54 @@
                                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard </a>
                                 </li>
                                 @if (auth()->user()->role == 'petugas')
-                                <li>
-                                    <a>
-                                        <i class="fa fa-sitemap"></i> Master Data <span
-                                            class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="{{ route('petugas.index') }}"><i class="fa fa-user-secret"></i>Data Petugas
-                                        <li><a href="{{ route('anggota.index') }}"><i class="fa fa-users"></i>Data Anggota
-                                        <li><a href="{{ route('buku.index') }}"><i class="fa fa-book"></i>Data
-                                                Buku</a></li>
-                                        <li><a href="{{ route('rak.index') }}"><i class="fa fa-table"></i>Rak Buku</a></li>
-                                        <li><a href="{{ route('kategori.index') }}"><i class="fa fa-tag"></i>Kategori Buku</a></li>
-                                        <li><a href="{{ route('pengarang.index') }}"><i class="fa fa-user-md"></i>Data
-                                                pengarang</a></li>
-                                        <li><a href="{{ route('penerbit.index') }}"><i class="fa fa-file-text"></i>Data
-                                                penerbit</a></li>
-                                    </ul>
-                                </li>
-                                <li><a><i class="fa fa-sitemap"></i> Transaksi <span
-                                            class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a><i class="fa fa-bar-chart-o"></i> Peminjaman<span
-                                                    class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="{{ route('pinjam.index') }}">Daftar peminjaman</a></li>
-                                                <li><a href="{{ route('pinjam.create') }}">Input peminjaman</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a><i class="fa fa-retweet"></i> Pengembalian<span
-                                                    class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="{{ route('pengembalian.index') }}">Daftar Pengembalian</a>
-                                                </li>
-                                                <li><a href="{{ route('pengembalian.create') }}">Input Pengembalian</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                
-                                <li><a href="{{ route('peraturan.index') }}"><i class="fa fa-cog"></i>Peraturan</span></a>
-                                </li>
-                                <li><a href="{{ route('identitas') }}"><i class="fa fa-refresh"></i>Identitas web</a>
-                                </li>
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-sitemap"></i> Master Data <span
+                                                class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ route('petugas.index') }}"><i class="fa fa-user-secret"></i>Data Petugas
+                                            <li><a href="{{ route('anggota.index') }}"><i class="fa fa-users"></i>Data Anggota
+                                            <li><a href="{{ route('buku.index') }}"><i class="fa fa-book"></i>Data
+                                                    Buku</a></li>
+                                            <li><a href="{{ route('rak.index') }}"><i class="fa fa-table"></i>Rak Buku</a></li>
+                                            <li><a href="{{ route('kategori.index') }}"><i class="fa fa-tag"></i>Kategori Buku</a></li>
+                                            <li><a href="{{ route('pengarang.index') }}"><i class="fa fa-user-md"></i>Data
+                                                    pengarang</a></li>
+                                            <li><a href="{{ route('penerbit.index') }}"><i class="fa fa-file-text"></i>Data
+                                                    penerbit</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-sitemap"></i> Transaksi <span
+                                                class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a><i class="fa fa-bar-chart-o"></i> Peminjaman<span
+                                                        class="fa fa-chevron-down"></span></a>
+                                                <ul class="nav child_menu">
+                                                    <li><a href="{{ route('pinjam.index') }}">Daftar peminjaman</a></li>
+                                                    <li><a href="{{ route('pinjam.create') }}">Input peminjaman</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a><i class="fa fa-retweet"></i> Pengembalian<span
+                                                        class="fa fa-chevron-down"></span></a>
+                                                <ul class="nav child_menu">
+                                                    <li><a href="{{ route('pengembalian.index') }}">Daftar Pengembalian</a>
+                                                    </li>
+                                                    <li><a href="{{ route('pengembalian.create') }}">Input Pengembalian</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li><a href="{{ route('peraturan.index') }}"><i class="fa fa-cog"></i>Peraturan</span></a>
+                                    </li>
+                                    <li><a href="{{ route('identitas') }}"><i class="fa fa-refresh"></i>Identitas web</a>
+                                    </li>
                                 @endif
                                 @if (auth()->user()->role == 'anggota')
-                                <li><a href="{{ route('anggota.pinjam') }}"><i class="fa fa-bar-chart-o"></i>Peminjaman
+                                    <li><a href="{{ route('katalog') }}"><i class="fa fa-book"></i>Katalog Buku</a></li>
+                                    <li><a href="{{ route('anggota.pinjam') }}"><i class="fa fa-bar-chart-o"></i>Peminjaman
                                         saya</a></li>
                                 @endif
                             </ul>

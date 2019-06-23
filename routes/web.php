@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas'], 'namespace' => 'Adm
 Route::group(['middleware' => ['auth', 'checkRole:anggota'], 'namespace' => 'Anggota'], function () {
     Route::get('/list-peminjaman/json', 'PinjamController@json');
     Route::get('/list-peminjaman', 'PinjamController@index')->name('anggota.pinjam');
+    Route::get('/katalog-buku', 'KatalogBukuController@index')->name('katalog');
 });
 
 Auth::routes();
