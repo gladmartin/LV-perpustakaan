@@ -56,5 +56,5 @@ Route::group(['middleware' => ['auth', 'checkRole:petugas,anggota']], function (
     Route::resource('/pinjam', 'Admin\PinjamController')->only('show');
 });
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false]);
 
