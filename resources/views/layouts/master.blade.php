@@ -30,6 +30,7 @@
     <link href="{{ asset('admin/assets') }}/vendors/alertifyjs/css/themes/default.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="shortcut icon" href="{{ asset('img') . "/" . identitas()->icon }}" type="image/x-icon">
     <!-- Tambahan -->
     @yield('styles')
 </head>

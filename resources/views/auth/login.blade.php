@@ -20,6 +20,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('admin/assets') }}/build/css/custom.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('img') . "/" . identitas()->icon }}" type="image/x-icon">
   </head>
 
   <body class="login">
