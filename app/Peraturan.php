@@ -23,4 +23,8 @@ class Peraturan extends Model
     {
         return $query->where('status', 'aktif');
     }
+    public function scopeNonActive($query)
+    {
+        return $query->where('status', 'non-aktif');
+    }
 }

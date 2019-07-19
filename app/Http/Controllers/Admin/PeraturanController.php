@@ -13,10 +13,7 @@ class PeraturanController extends Controller
 
     public function json()
     {
-        return DataTables::of(Peraturan::orderBy('status', 'ASC')->get())
-        ->addColumn('no', function() {
-            return '';
-        })
+        return DataTables::of(Peraturan::nonActive()->latest()->get())
         ->addColumn('petugas', function(Peraturan $peraturan) {
             return "<a href=". route('petugas.show', $peraturan->petugas->id) .">{$peraturan->petugas->nama}</a>";
         })
@@ -26,14 +23,14 @@ class PeraturanController extends Controller
         ->editColumn('maksimal_peminjaman', function(Peraturan $peraturan) {
             return "<span class='badge'>$peraturan->maksimal_peminjaman (buku)</span>";
         })
-        ->editColumn('dispensasi_keterlambatan', function(Peraturan $peraturan) {
-            return "<span class='badge'>$peraturan->dispensasi_keterlambatan (hari)</span>";
+        ->editColumn('biaya_denda', function(Peraturan $peraturan) {
+            return rupiah($peraturan->biaya_denda);
         })
         ->addColumn('opsi', function(Peraturan $peraturan) {
             return "
             <a href='". route('peraturan.show', $peraturan->id) ."' class='btn btn-dark' data-id='$peraturan->id'><i class='fa fa-eye'></i> </a>";
         })
-        ->rawColumns(['opsi', 'petugas', 'lama_pengembalian', 'maksimal_peminjaman', 'dispensasi_keterlambatan'])
+        ->rawColumns(['opsi', 'petugas', 'lama_pengembalian', 'maksimal_peminjaman'])
         ->make(true);
     }
 
@@ -44,7 +41,7 @@ class PeraturanController extends Controller
      */
     public function index()
     {
-        $data['peraturan'] = Peraturan::withCount('pinjam')->get();
+        $data['peraturan'] = Peraturan::active()->first();
         return view('peraturan.index', $data);
     }
 

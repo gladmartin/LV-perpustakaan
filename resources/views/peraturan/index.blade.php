@@ -24,25 +24,60 @@
                 </div>
                 <div class="col-md-2">
                     <div class="pull-right">
-                        <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-dark">Buat peraturan baru</a>
+                        <a href="#" data-toggle='modal' data-target='.bs-example-modal-lg' class="btn btn-dark">Buat
+                            peraturan baru</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table id="datatable-server-side" class="table table-striped table-bordered dt-responsive nowrap">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Pembuat peraturan</th>
-                            <th>Lama pengembalian</th>
-                            <th>Maksimal peminjaman</th>
-                            <th>Dispensasi</th>
-                            <th>Biaya denda</th>
-                            <th>Status</th>
-                            <th>Opsi</th>
-                        </tr>
-                </table>
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#tab_content1" id="aktif-tab" role="tab"
+                                data-toggle="tab" aria-expanded="true">Aktif</a>
+                        </li>
+                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="nonaktif-tab"
+                                data-toggle="tab" aria-expanded="false">Tidak Aktif</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
+                            aria-labelledby="aktif-tab">
+                            <table class="table">
+                                <tr>
+                                    <th width="300">Pembuat peraturan</th>
+                                    <td>{{ $peraturan->petugas->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lama pengembalian</th>
+                                    <td>{{ $peraturan->lama_pengembalian}} Hari</td>
+                                </tr>
+                                <tr>
+                                    <th>Maksimal peminjaman</th>
+                                    <td>{{ $peraturan->maksimal_peminjaman}} Buku</td>
+                                </tr>
+                                <tr>
+                                    <th>Biaya denda</th>
+                                    <td>{{ rupiah($peraturan->biaya_denda) }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="nonaktif-tab">
+                            <table id="datatable-server-side" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pembuat peraturan</th>
+                                        <th>Lama pengembalian</th>
+                                        <th>Maksimal peminjaman</th>
+                                        <th>Biaya denda</th>
+                                        <th>Status</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,26 +100,26 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label for="lama_pengembalian">Lama pengembalian (hari) <span class="text-danger">*</span> </label>
+                            <label for="lama_pengembalian">Lama pengembalian (hari) <span class="text-danger">*</span>
+                            </label>
                             <input id="lama_pengembalian" type="number" name="lama_pengembalian" required
                                 class="form-control">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="maks">Maksimal peminjaman (buku) <span class="text-danger">*</span> </label>
-                            <input id="maks" type="number" name="maks" required
-                                class="form-control">
+                            <input id="maks" type="number" name="maks" required class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label for="dispensasi">Dispensasi keterlambatan (hari) <span class="text-danger">*</span> </label>
-                            <input id="dispensasi" type="number" name="dispensasi"                        class="form-control">
+                            <label for="dispensasi">Dispensasi keterlambatan (hari) <span class="text-danger">*</span>
+                            </label>
+                            <input id="dispensasi" type="number" name="dispensasi" class="form-control">
                             <span class="small">Kosongkan jika tidak ingin ada Dispensasi</span>
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="denda">Biaya denda (Rp)<span class="text-danger">*</span> </label>
-                            <input id="denda" type="number" name="denda" required
-                                class="form-control">
+                            <input id="denda" type="number" name="denda" required class="form-control">
                         </div>
                     </div>
                 </div>
@@ -130,10 +165,6 @@
                 name: 'maksimal_peminjaman'
             },
             {
-                data: 'dispensasi_keterlambatan',
-                name: 'dispensasi_keterlambatan'
-            },
-            {
                 data: 'biaya_denda',
                 name: 'biaya_denda'
             },
@@ -162,7 +193,7 @@
             function () {});
     })
 
-    $('#form-tambah').on('submit', async function(e) {
+    $('#form-tambah').on('submit', async function (e) {
         e.preventDefault();
         $('#form-tambah button[type=submit]').addClass('disabled');
         $('#form-tambah button[type=submit]').html('Memproses...');
@@ -177,11 +208,11 @@
         let elMaks = $('#form-tambah #maks');
         let elDispensasi = $('#form-tambah #dispensasi');
         let elDenda = $('#form-tambah #denda');
-        clearErrorInput([elPengembalian,elMaks,elDispensasi,elDenda]);
+        clearErrorInput([elPengembalian, elMaks, elDispensasi, elDenda]);
         if (!response.data.status) {
-            $.each(response.data.errors, function(i, el) {
+            $.each(response.data.errors, function (i, el) {
                 let tes = $(`#form-tambah #${i}`);
-               tes.addClass('parsley-error');
+                tes.addClass('parsley-error');
                 $(`#form-tambah #${i}`).after(`<b class="text-danger errorInput">${el[0]}</b>`);
             })
             return;
