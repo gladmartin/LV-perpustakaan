@@ -90,12 +90,12 @@ class PengembalianController extends Controller
         $arrBuku = json_decode($request->buku);
         $jmlPengembalian = count($arrBuku);
         // update table pinjam
-        $where = ['id' => $request->pinjam_id, 'anggota_id' => $request->anggota_id];
+        $where = ['id' => $request->pinjam_id, 'anggota_id' => $request->anggota_id, 'status' => 'dipinjam'];
         $pinjam = Pinjam::where($where)->first();
         if (!$pinjam) {
             $response = [
                 'status' => false,
-                'msg' => 'pengembalian tidak valid'
+                'errors' => 'pengembalian tidak valid'
             ];
             return response()->json($response);
         }
